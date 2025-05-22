@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    input {
+      width: 80px;
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Age Calculator</h2>
+  <div>
+    <input type="number" id="day" placeholder="DD" min="1" max="31">
+    <input type="number" id="month" placeholder="MM" min="1" max="12">
+    <input type="number" id="year" placeholder="YYYY" min="1900" max="2100">
+  </div>
+  <button onclick="calculateAge()">Calculate Age</button>
+  <div class="error" id="error"></div>
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+function calculateAge() {
+  const day = parseInt(document.getElementById('day').value);
+  const month = parseInt(document.getElementById('month').value) - 1; // JavaScript months: 0-11
+  const year = parseInt(document.getElementById('year').value);
+  const error = document.getElementById('error');
+  const result = document.getElementById('result');
+  error.textContent = '';
+  result.textContent = '';
+
+  if (isNaN(day) || isNaN(month) || isNaN(year)) {
+    error.textContent = 'Please enter a valid date.';
+    return;
+  }
+
+  const birthDate = new Date(year, month, day);
+  const today = new Date();
+
+  if (birthDate > today) {
+    error.textContent = 'Date of birth cannot be in the future.';
+    return;
+  }
+
+  let years = today.getFullYear() - birthDate.getFullYear();
+  let months = today.getMonth() - birthDate.getMonth();
+  let days = today.getDate() - birthDate.getDate();
+
+  if (days < 0) {
+    months--;
+    const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += prevMonth.getDate();
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  result.textContent = `You are ${years} years, ${months} months, and ${days} days old.`;
+}
+</script>
+
+</body>
+</html>
