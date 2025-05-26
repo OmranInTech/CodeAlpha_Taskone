@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Age Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="pageTitle">
+    <h1 id="pageTitle">Age Calculator</h1>
+
+    <form id="ageForm" novalidate>
+      <input
+        type="number"
+        id="day"
+        name="day"
+        placeholder="DD"
+        min="1"
+        max="31"
+        required
+      />
+      <input
+        type="number"
+        id="month"
+        name="month"
+        placeholder="MM"
+        min="1"
+        max="12"
+        required
+      />
+      <input
+        type="number"
+        id="year"
+        name="year"
+        placeholder="YYYY"
+        min="1900"
+        max="2100"
+        required
+      />
+      <button type="submit">Calculate Age</button>
+    </form>
+
+    <div class="error" id="error" role="alert"></div>
+    <div class="result" id="result" aria-live="polite"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
